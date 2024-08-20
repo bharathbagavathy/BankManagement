@@ -1,0 +1,31 @@
+<div class="themed-container">
+  <h2 class="text-center">Debit Cards</h2>
+
+  <!-- Bank Accounts List -->
+  <div class="card mt-4">
+    <div class="card-header">Bank Accounts</div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Card Number</th>
+            <th>Account Number</th>
+            <th>Cvv</th>
+            <th>Expiry Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let card of debitCards">
+            <td>{{ card.cardNo }}</td>
+            <td>{{ card.accountNo }}</td>
+            <td>{{ card.cvv }}</td>
+            <td>{{ card.expiryDate |date }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="position-fixed top-0 p-1">
+        <button class="btn btn-primary btn-sm" (click)="gotoHome()">Home</button>
+      </div>
+    </div>
+  </div>
+</div>

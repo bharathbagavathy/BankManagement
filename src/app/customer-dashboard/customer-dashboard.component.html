@@ -1,0 +1,77 @@
+<div class="body">
+<div class="themed-container"><div>
+  <h2 class="text-center themed-heading">Customer Dashboard</h2>
+
+  <!-- Card Details Section -->
+  <div class="card mt-4 themed-card themed-card-alt">
+    <div class="card-header themed-card-header-alt">Enter Card Details</div>
+    <div class="card-body themed-card-body">
+      <div class="form-group">
+        <label for="cardNo">Card Number</label>
+        <input type="text" id="cardNo" class="form-control themed-input" [(ngModel)]="cardNo">
+      </div>
+      <div class="form-group">
+        <label for="accountNumber">Account Number</label>
+        <input  type="text" id="accountNumber" class="form-control themed-input" [(ngModel)]="accountNumber">
+      </div>
+      <div class="form-group mt-3">
+        <label for="pin">PIN</label>
+        <input type="password" id="pin" class="form-control themed-input" [(ngModel)]="pin">
+      </div>
+      <div class="form-group mt-3">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" class="form-control themed-input" [(ngModel)]="cvv">
+      </div>
+      <div class="form-group mt-3">
+        <label for="expiryDate">Expiry Date</label>
+        <input type="date" id="expiryDate" class="form-control themed-input" [(ngModel)]="expiryDate">
+      </div>
+      <button class="btn btn-success mt-3 themed-button" (click)="loadAccountDetails()">View Account Details</button>
+    </div>
+  </div>
+
+  <!-- Account Details Section -->
+  <div *ngIf="accountDetails" class="card mt-4 themed-card">
+    <div class="card-header themed-card-header">Account Details</div>
+    <div class="card-body themed-card-body">
+      <p><strong>Account Number:</strong> {{ accountDetails.accountNo }}</p>
+      <p><strong>Account Holder:</strong> {{ accountDetails.accountHolderName }}</p>
+      <p><strong>Phone Number:</strong> {{ accountDetails.phoneNo }}</p>
+      <p><strong>Balance:</strong> {{ accountDetails.balance | currency:'INR':'symbol' }}</p>
+      <p><strong>Address:</strong> {{ accountDetails.address }}</p>
+      <p><strong>Branch Name:</strong> {{ accountDetails.branchName }}</p>
+    </div>
+  </div>
+
+  <!-- Deposit Section -->
+  <div class="card mt-4 themed-card themed-card-success">
+    <div class="card-header themed-card-header-success">Deposit Amount</div>
+    <div class="card-body themed-card-body">
+      <div class="form-group">
+        <label for="depositAmount">Amount to Deposit</label>
+        <input type="number" id="depositAmount" class="form-control themed-input" [(ngModel)]="depositamount">
+      </div>
+      <button class="btn btn-primary mt-3 themed-button" (click)="deposit()">Deposit</button>
+    </div>
+  </div>
+
+  <!-- Withdraw Section -->
+  <div class="card mt-4 themed-card themed-card-danger">
+    <div class="card-header themed-card-header-danger">Withdraw Amount</div>
+    <div class="card-body themed-card-body">
+      <div class="form-group">
+        <label for="withdrawAmount">Amount to Withdraw</label>
+        <input type="number" id="withdrawAmount" class="form-control themed-input" [(ngModel)]="withdrawamount">
+      </div>
+      <button class="btn btn-primary mt-3 themed-button" (click)="withdraw()">Withdraw</button>
+    </div>
+    
+    
+  </div>
+  
+
+  <div class="text-center mt-4">
+    <button class="btn btn-danger btn-sm themed-button-danger" (click)="logout()">Logout</button>
+  </div>
+</div>
+</div>

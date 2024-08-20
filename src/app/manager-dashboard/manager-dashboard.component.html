@@ -1,0 +1,120 @@
+<div class="themed-container">
+  <h2 class="text-center themed-heading">Manager Dashboard</h2>
+  <button class="btn btn-primary btn-sm " (click)="gotoDebitCard()">Debit Cards</button>&nbsp;
+
+  <!-- Bank Accounts List -->
+  <div class="card mt-4 themed-card themed-card-alt">
+    <div class="card-header themed-card-header-alt">Bank Accounts</div>
+    <div class="card-body themed-card-body">
+      <label for="search">Search by Account Number</label>
+      <input type="text" id="search" class="form-control themed-input" name="searchAccountNumber" [(ngModel)]="searchAccountNumber" style="width: 200px;">
+      <br>
+      <button class="btn btn-primary themed-button" (click)="loadBankAccount(searchAccountNumber)">Click to Search</button> &nbsp;
+      <button class="btn btn-warning themed-button-alt" (click)="loadBankAccounts()">Click to Get All Accounts</button>
+      <br>
+      <br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Account Number</th>
+            <th>Account Holder</th>
+            <th>Phone Number</th>
+            <th>Balance</th>
+            <th>Address</th>
+            <th>Branch Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let account of bankAccounts" (click)="selectAccount(account)">
+            <td>{{ account.accountNo }}</td>
+            <td>{{ account.accountHolderName }}</td>
+            <td>{{ account.phoneNo }}</td>
+            <td>{{ account.balance | currency:'INR':'symbol' }}</td>
+            <td>{{ account.address }}</td>
+            <td>{{ account.branchName }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm themed-button-danger"
+               (click)="deleteBankAccount(account.accountNo)">Delete Account</button>&nbsp;
+               <br>
+               <br>
+              <button class="btn btn-primary btn-sm themed-button-alt" (click)="createCard(account.accountNo)" [disabled]="hasDebitCard(account.accountNo)">
+                Create Debit Card
+              </button>&nbsp;
+              <br>
+              <br>
+              <button class="btn btn-danger btn-sm themed-button-danger" (click)="deleteCard(account.accountNo)" [disabled]="!hasDebitCard(account.accountNo)">
+                Delete Debit Card
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Update Selected Account -->
+  <div *ngIf="selectedAccount" class="card mt-4 themed-card themed-card-success">
+    <div class="card-header themed-card-header-success">Update Bank Account</div>
+    <div class="card-body themed-card-body">
+      <form #updateForm="ngForm" (ngSubmit)="updateBankAccount(updateForm.value)">
+        <div class="form-group">
+          <label for="accountNo">Account Number</label>
+          <input readonly type="text" id="accountNo" class="form-control themed-input" name="accountNo" [(ngModel)]="selectedAccount.accountNo" required>
+        </div>
+        <div class="form-group">
+          <label for="accountHolderName">Account Holder Name</label>
+          <input type="text" id="accountHolderName" class="form-control themed-input" name="accountHolderName" [(ngModel)]="selectedAccount.accountHolderName" required>
+        </div>
+        <div class="form-group">
+          <label for="phoneNo">Phone Number</label>
+          <input type="text" id="phoneNo" class="form-control themed-input" name="phoneNo" [(ngModel)]="selectedAccount.phoneNo" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" class="form-control themed-input" name="address" [(ngModel)]="selectedAccount.address" required>
+        </div>
+        <div class="form-group">
+          <label for="branchName">Branch Name</label>
+          <input type="text" id="branchName" class="form-control themed-input" name="branchName" [(ngModel)]="selectedAccount.branchName" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3 themed-button">Update Account</button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="updatesuccessMessage" class="alert alert-success mt-4 themed-alert-success">
+    {{ updatesuccessMessage }}
+  </div>
+
+  <!-- Create Bank Account Form -->
+  <div class="card mt-4 themed-card themed-card-alt">
+    <div class="card-header themed-card-header-alt">Create New Bank Account</div>
+    <div class="card-body themed-card-body">
+      <form #accountForm="ngForm" (ngSubmit)="createBankAccount(accountForm.value)">
+        <div class="form-group">
+          <label for="accountHolderName">Account Holder Name</label>
+          <input type="text" id="accountHolderName" class="form-control themed-input" name="accountHolderName" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="PhoneNo">Phone Number</label>
+          <input type="text" id="PhoneNo" class="form-control themed-input" name="PhoneNo" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" class="form-control themed-input" name="address" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="branchname">Branch Name</label>
+          <input type="text" id="branchname" class="form-control themed-input" name="branchname" ngModel required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3 themed-button" [disabled]="!accountForm.valid">Create Account</button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="createSuccessMessage" class="alert alert-success mt-4 themed-alert-success">
+    {{ createSuccessMessage }}
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-danger btn-sm themed-button-danger" (click)="logoutManager()">Logout</button>
+  </div>
+</div>
